@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#113d34">
+  <meta name="description" content="四人麻將記分助手：台數試算、手動記分、即時總分、每局紀錄與本機保存。">
+  <title>牌桌小帳本｜麻將記分助手</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23113d34'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-size='28' font-family='sans-serif' fill='%23ffffff'%3E中%3C/text%3E%3C/svg%3E">
+  <style>
+    :root{--ink:#192c29;--muted:#65756f;--green:#146c53;--green-dark:#113d34;--mint:#c8f4da;--line:#dce5df;--paper:#fff;--bg:#f2f5f3;--red:#aa3e35;--radius:20px}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI","Noto Sans TC","Microsoft JhengHei",sans-serif;font-size:1rem;line-height:1.6}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.46}button,input,select{min-height:46px}button{border:0}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,a:focus-visible{outline:3px solid #dc9b28;outline-offset:3px}input,select{width:100%;padding:10px 12px;border:1px solid #cbd8d0;border-radius:10px;color:var(--ink);background:#fff}input[type=radio]{width:auto;min-height:0;accent-color:var(--green)}input[type=number]{font-variant-numeric:tabular-nums}h1,h2,h3,p{margin:0}h2{font-size:1.3125rem;letter-spacing:.02em}h3{font-size:1rem}button{transition:background .15s,transform .15s}button:active:not(:disabled){transform:translateY(1px)}.shell{width:min(1180px,calc(100% - 64px));margin:0 auto}.topbar{border-bottom:1px solid var(--line);background:#fff}.topbar-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:12px;font-weight:750;letter-spacing:.04em}.brand-mark{display:grid;place-items:center;background:var(--green-dark);color:#fff;width:38px;height:42px;border-radius:8px;font-size:1.5rem}.top-label{font-size:0.8125rem;letter-spacing:.13em;color:var(--muted)}.button{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-weight:650;line-height:1.4}.primary{background:var(--green);color:#fff}.primary:hover{background:#105640}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}.secondary:hover{background:#f0f5f2}.quiet{background:transparent;color:var(--muted);padding:8px 12px}.quiet:hover{background:#e9f0eb}.danger{color:var(--red)}.titlebar{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding:32px 0 24px}.eyebrow{color:var(--green);font-size:0.8125rem;font-weight:750;letter-spacing:.12em;margin-bottom:6px}h1{font-size:2.25rem;line-height:1.3;letter-spacing:.035em}.subtitle{color:var(--muted);margin-top:8px}.title-actions{display:flex;gap:10px;flex-wrap:wrap}.board{background:var(--green-dark);padding:25px 28px 28px;border-radius:var(--radius);color:#fff}.board-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px}.board-top h2{font-size:1.125rem}.board-meta{display:flex;align-items:center;gap:16px;font-size:0.875rem;color:#c5d9d1}.board-meta strong{color:#fff;font-size:1.125rem}.board .quiet{color:#e5f4eb;border:1px solid #577a6c}.board .quiet:hover{background:#244e42}.scores{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.score-card{background:#ffffff0d;border:1px solid #ffffff20;border-radius:14px;padding:17px 18px;min-width:0}.score-top{display:flex;align-items:center;gap:10px}.seat{border:1px solid #698879;border-radius:6px;display:grid;place-items:center;flex-shrink:0;width:28px;height:30px;font-size:0.875rem}.player-name{font-weight:650;overflow-wrap:anywhere}.score-value{font-size:2.125rem;font-weight:750;letter-spacing:-.035em;line-height:1.3;margin:14px 0 8px;font-variant-numeric:tabular-nums}.score-value.positive{color:#baf3cf}.score-value.negative{color:#ffb9a7}.score-caption{font-size:0.8125rem;color:#c4d8d0;min-height:22px}.leader{color:#ffe19a}.workspace{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:25px 26px}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}.badge{background:#edf5ef;color:var(--green);border-radius:6px;padding:4px 9px;font-size:0.8125rem;white-space:nowrap}.tabs{display:flex;gap:4px;background:#edf2ee;border-radius:11px;padding:4px;margin-bottom:22px}.tab{flex:1;border-radius:8px;background:transparent;color:var(--muted);font-weight:650;padding:8px 12px;min-height:42px}.tab[aria-selected=true]{background:#fff;color:var(--green);box-shadow:0 2px 5px #1634270c}.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.field{display:block}.field-name{display:block;font-size:0.875rem;font-weight:650;margin-bottom:7px}fieldset{border:0;padding:0;margin:0 0 17px}legend{font-size:0.875rem;font-weight:650;margin-bottom:8px}.choice-row{display:flex;gap:8px}.choice{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);border-radius:10px;flex:1;min-height:45px;font-size:0.9375rem;cursor:pointer}.choice:has(input:checked){background:#eff8f1;border-color:#76ab8c;color:var(--green)}.rule-line{background:#f4f7f4;padding:9px 12px;border-radius:8px;margin:16px 0;color:var(--muted);font-size:0.875rem}.rule-line strong{color:var(--ink);font-variant-numeric:tabular-nums}.help{color:var(--muted);font-size:0.875rem;line-height:1.7}.manual-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.preview{border:1px solid var(--line);border-radius:12px;padding:14px 15px;margin-top:20px;background:#fafcfb}.preview-head{display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;font-size:0.875rem}.balance{color:var(--green);font-size:0.8125rem}.balance.invalid{color:var(--red)}.preview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.preview-item{min-width:0;text-align:center;padding:5px 0}.preview-name{display:block;font-size:0.8125rem;color:var(--muted);overflow-wrap:anywhere}.preview-num{font-size:1.125rem;font-weight:750;font-variant-numeric:tabular-nums}.positive{color:var(--green)}.negative{color:var(--red)}.note-field{margin-top:18px}.optional{font-weight:400;color:var(--muted)}.submit-row{display:flex;gap:12px;margin-top:18px}.submit-row .primary{flex:1}.error{color:var(--red);font-size:0.875rem;line-height:1.6;margin-top:10px;min-height:0}.error:empty{display:none}.history-meta{display:flex;gap:8px;align-items:center;font-size:0.8125rem;color:var(--muted)}.history-tools{display:flex;gap:5px;flex-wrap:wrap}.history-tools .quiet{font-size:0.875rem;min-height:38px;padding:5px 9px}.empty{padding:48px 12px 35px;text-align:center}.empty-symbol{font-size:2.0625rem;margin-bottom:12px}.empty h3{font-size:1.125rem;margin-bottom:7px}.empty p{color:var(--muted);font-size:0.875rem}.sample-button{margin-top:20px;font-size:0.875rem}.record{padding:16px 0;border-bottom:1px solid #e8eeea}.record:first-child{padding-top:0}.record:last-child{border-bottom:0;padding-bottom:0}.record-heading{display:flex;gap:12px;align-items:baseline}.record-number{color:var(--muted);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:0.8125rem;flex-shrink:0}.record-title{font-size:0.9375rem;font-weight:650;overflow-wrap:anywhere;flex:1}.record-time{color:var(--muted);font-size:0.75rem;flex-shrink:0}.record-scores{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:9px 0 0 41px}.record-player{font-size:0.75rem;color:var(--muted);overflow-wrap:anywhere}.record-value{font-weight:650;font-size:0.9375rem;display:block;font-variant-numeric:tabular-nums}.record-note{font-size:0.8125rem;color:var(--muted);margin:8px 0 0 41px;overflow-wrap:anywhere}.record-list{max-height:590px;overflow-y:auto;padding-right:3px}.footer{display:flex;justify-content:space-between;gap:12px;padding:25px 0 30px;color:var(--muted);font-size:0.8125rem}.save-status{color:var(--green)}.save-status.failed{color:var(--red)}.info-details{margin-top:20px;border-top:1px solid var(--line);padding-top:14px}.info-details summary{cursor:pointer;font-size:0.875rem;color:var(--muted);min-height:32px}.info-details p{margin-top:8px}.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#183e32;color:#fff;padding:12px 22px;box-shadow:0 6px 22px #19372925;border-radius:10px;max-width:calc(100vw - 28px);z-index:10;text-align:center;font-size:0.875rem}.toast[hidden],[hidden]{display:none!important}dialog{border:1px solid var(--line);border-radius:18px;padding:28px;width:min(500px,calc(100% - 32px));max-height:calc(100dvh - 40px);color:var(--ink);box-shadow:0 20px 80px #102c2925}dialog::backdrop{background:#112e2866}dialog h2{margin-bottom:5px}dialog .help{margin-bottom:22px}.dialog-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.dialog-subtitle{margin:20px 0 12px}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:23px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}.noscript{margin:20px;padding:20px;background:#fff1cf;border:1px solid #cf9e30}
+    @media(max-width:900px){.shell{width:calc(100% - 36px)}.workspace{gap:18px}.panel{padding:22px 20px}.board{padding:22px}.score-card{padding:14px}.score-value{font-size:1.75rem}.top-label{display:none}h1{font-size:1.875rem}}
+    @media(max-width:720px){.shell{width:calc(100% - 28px)}.topbar-inner{min-height:64px}.titlebar{padding:24px 0 20px;align-items:start;flex-direction:column;gap:15px}.title-actions{width:100%}.title-actions .button{flex:1}h1{font-size:1.8125rem}.subtitle{font-size:0.875rem}.board{padding:20px 16px}.board-top{margin-bottom:15px;align-items:start}.board-meta{gap:10px;flex-wrap:wrap;justify-content:flex-end}.board .quiet{min-height:38px;font-size:0.8125rem;padding:7px 10px}.scores{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.score-card{padding:13px 14px}.score-value{font-size:1.9375rem;margin:10px 0 4px}.workspace{grid-template-columns:1fr;margin-top:18px;gap:18px}.panel{padding:22px 19px}.record-list{max-height:none;overflow:visible}.footer{flex-direction:column;gap:5px}.record-scores{margin-left:0}.record-note{margin-left:0}.panel-heading{flex-wrap:wrap}.grid-2{gap:12px}.dialog-grid{gap:12px}.topbar .quiet{font-size:0.875rem}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  
+    .score-value{overflow-wrap:anywhere}.choice-row{flex-wrap:wrap}.choice{min-width:88px}.brand{min-width:0}.brand>span:nth-child(2){overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+  <noscript><div class="noscript">這個記分助手需要 JavaScript，請開啟瀏覽器的 JavaScript 後重新整理。</div></noscript>
+  <header class="topbar"><div class="shell topbar-inner"><div class="brand"><span class="brand-mark" aria-hidden="true">中</span><span>牌桌小帳本</span><span class="top-label">MAHJONG SCOREBOOK</span></div><button class="button quiet danger" id="new-game">新開牌桌</button></div></header>
+  <main class="shell">
+    <div class="titlebar"><div><p class="eyebrow">四人麻將 · 即時記分</p><h1>這桌輸贏，一目了然。</h1><p class="subtitle">記下一局，剩下的加總交給小帳本。</p></div><div class="title-actions"><button class="button secondary" id="export-csv" disabled>匯出 CSV</button><button class="button secondary" id="open-settings">玩家與牌桌設定</button></div></div>
+    <section class="board" aria-labelledby="score-heading"><div class="board-top"><h2 id="score-heading">牌桌總分</h2><div class="board-meta"><span>已記錄 <strong id="round-count">0</strong> 局</span><span id="table-rule">底 30 / 台 10</span></div></div><div class="scores" id="scores" aria-live="polite" aria-atomic="true"></div></section>
+    <div class="workspace">
+      <section class="panel" aria-labelledby="entry-heading"><div class="panel-heading"><h2 id="entry-heading">記下一局</h2><span class="badge" id="next-round">第 1 局</span></div>
+        <div class="tabs" role="tablist" aria-label="記分方式"><button type="button" role="tab" class="tab" id="calc-tab" aria-selected="true" aria-controls="calc-panel" tabindex="0">台數試算</button><button type="button" role="tab" class="tab" id="manual-tab" aria-selected="false" aria-controls="manual-panel" tabindex="-1">手動記分</button></div>
+        <form id="round-form" novalidate>
+          <div id="calc-panel" role="tabpanel" aria-labelledby="calc-tab"><fieldset><legend>這局怎麼結束？</legend><div class="choice-row"><label class="choice"><input type="radio" name="result-type" value="discard" checked>放槍</label><label class="choice"><input type="radio" name="result-type" value="selfdraw">自摸</label><label class="choice"><input type="radio" name="result-type" value="draw">流局</label></div></fieldset>
+            <div id="calc-fields"><div class="grid-2"><label class="field"><span class="field-name">胡牌玩家</span><select id="winner" aria-label="胡牌玩家"></select></label><label class="field" id="loser-field"><span class="field-name">放槍玩家</span><select id="loser" aria-label="放槍玩家"></select></label><label class="field" id="tai-field"><span class="field-name">台數</span><input id="tai" type="number" inputmode="numeric" min="0" max="999" step="1" value="2" aria-describedby="rule-description"></label></div><div class="rule-line" id="rule-description">每位付款玩家支付 <strong id="payment-amount">50</strong> ＝ 底 <span id="base-label">30</span> ＋ <span id="tai-label">2</span> 台 × <span id="per-label">10</span></div></div>
+            <p class="help" id="calc-help">放槍由一人支付，自摸由其餘三人各支付。特殊加成請計入台數，或切換手動記分。</p>
+          </div>
+          <div id="manual-panel" role="tabpanel" aria-labelledby="manual-tab" hidden><p class="help" style="margin-bottom:16px">贏的填正數，輸的填負數；四人的加總必須等於 0。</p><div class="manual-fields" id="manual-fields"></div></div>
+          <div class="preview"><div class="preview-head"><strong>本局預覽</strong><span id="balance-status" class="balance">收支平衡</span></div><div class="preview-grid" id="preview-scores"></div></div>
+          <label class="field note-field"><span class="field-name">本局備註 <span class="optional">（選填）</span></span><input id="round-note" type="text" maxlength="80" placeholder="例如：莊家連莊，已計入台數"></label>
+          <p class="error" id="round-error" role="alert"></p><div class="submit-row"><button class="button primary" type="submit">記錄這一局</button></div>
+        </form>
+        <details class="info-details"><summary>記分方式與保存說明</summary><p class="help">台數試算只使用你設定的「底＋台數×每台金額」。莊家、連莊、包牌等規則由牌桌自行約定，請調整台數或使用手動記分。這裡不判斷牌型，也不提供金流。</p><p class="help">紀錄保存在目前瀏覽器，不會跨裝置同步。清除瀏覽器資料或使用無痕模式可能讓紀錄消失；需要留存時可匯出 CSV。</p></details>
+      </section>
+      <section class="panel" aria-labelledby="history-heading"><div class="panel-heading"><h2 id="history-heading">每局紀錄</h2><div class="history-tools"><button class="button quiet" id="undo-round" disabled>撤銷上一局</button></div></div><div id="empty-state" class="empty"><div class="empty-symbol" aria-hidden="true">🀄</div><h3>第一局，從這裡開始。</h3><p>設定四位玩家，再把這一局記下來。</p><button class="button secondary sample-button" id="load-demo">載入示範紀錄</button></div><div id="history-list" class="record-list" hidden></div></section>
+    </div>
+    <footer class="footer"><span>四位玩家的累計加總：<strong id="total-balance">0</strong></span><span id="save-status" class="save-status" role="status">紀錄自動保存在這個瀏覽器</span></footer>
+  </main>
+  <dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form" novalidate><h2 id="settings-title">玩家與牌桌設定</h2><p class="help">取個好認的名字，底和台的金額由這桌決定。</p><div class="dialog-grid" id="name-fields"></div><h3 class="dialog-subtitle">台數試算設定</h3><div class="dialog-grid"><label class="field"><span class="field-name">底的金額</span><input id="setting-base" type="number" inputmode="numeric" min="0" max="1000000" step="1" value="30"></label><label class="field"><span class="field-name">每台金額</span><input id="setting-per" type="number" inputmode="numeric" min="0" max="1000000" step="1" value="10"></label></div><p class="help" style="margin:12px 0 0">修改金額只影響之後的試算，已記錄的輸贏金額會保留。</p><p id="settings-error" class="error" role="alert"></p><div class="dialog-actions"><button class="button secondary" id="close-settings" type="button">取消</button><button class="button primary" type="submit">儲存設定</button></div></form></dialog>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-title"><h2 id="confirm-title">確定執行這個動作？</h2><p id="confirm-text" class="help"></p><div class="dialog-actions"><button class="button secondary" id="confirm-cancel">取消</button><button class="button primary" id="confirm-ok">確定</button></div></dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script>
+    'use strict';
+    const $ = (selector) => document.querySelector(selector);
+    const STORAGE_KEY = 'mahjong-scorebook-v1';
+    const SEATS = ['東','南','西','北'];
+    const DEFAULT_NAMES = ['東家','南家','西家','北家'];
+    const MAX_DELTA = 1000000000;
+    let mode = 'calc';
+    let toastTimer;
+    let confirmAction = null;
+    let storageAvailable = true;
+    const freshState = () => ({version:1,names:[...DEFAULT_NAMES],base:30,per:10,rounds:[]});
+    let state = freshState();
+    function isSafeAmount(value, max = MAX_DELTA) { return Number.isSafeInteger(value) && Math.abs(value) <= max; }
+    function validStoredRound(record) {
+      if (!record || !Array.isArray(record.deltas) || record.deltas.length!==4 || !record.deltas.every(n=>isSafeAmount(n)) || record.deltas.reduce((a,b)=>a+b,0)!==0) return false;
+      if (!['discard','selfdraw','draw','manual'].includes(record.type) || typeof record.note!=='string' || record.note.length>80 || typeof record.time!=='string' || !Number.isFinite(Date.parse(record.time))) return false;
+      if (record.type==='draw') return record.deltas.every(n=>n===0);
+      if (record.type==='manual') return record.deltas.some(n=>n!==0);
+      if (!Number.isInteger(record.winner) || record.winner<0 || record.winner>3 || !Number.isInteger(record.tai) || record.tai<0 || record.tai>999) return false;
+      if (!isSafeAmount(record.base,1000000) || record.base<0 || !isSafeAmount(record.per,1000000) || record.per<0 || !isSafeAmount(record.amount) || record.amount<=0 || record.amount!==record.base+record.tai*record.per) return false;
+      if (record.type==='selfdraw') return record.deltas.every((n,i)=>n===(i===record.winner?record.amount*3:-record.amount));
+      if (!Number.isInteger(record.loser) || record.loser<0 || record.loser>3 || record.loser===record.winner) return false;
+      return record.deltas.every((n,i)=>n===(i===record.winner?record.amount:i===record.loser?-record.amount:0));
+    }
+    function validStoredState(candidate) {
+      return Boolean(candidate && candidate.version===1 && Array.isArray(candidate.names) && candidate.names.length===4 && candidate.names.every(n=>typeof n==='string' && n.trim()===n && n.length>0 && n.length<=12) && new Set(candidate.names).size===4 && isSafeAmount(candidate.base,1000000) && candidate.base>=0 && isSafeAmount(candidate.per,1000000) && candidate.per>=0 && Array.isArray(candidate.rounds) && candidate.rounds.length<=10000 && candidate.rounds.every(validStoredRound));
+    }
+    function readSavedState() {
+      try { const raw=localStorage.getItem(STORAGE_KEY); if(raw!==null){const stored=JSON.parse(raw); if(!validStoredState(stored)) throw new Error('Invalid saved state'); state=stored;} }
+      catch(error) { storageAvailable=false; $('#save-status').textContent='無法讀取保存紀錄；目前可繼續操作，請匯出備份'; $('#save-status').classList.add('failed'); }
+    }
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); storageAvailable=true; $('#save-status').textContent='已自動保存 · 重新整理也能接著記'; $('#save-status').classList.remove('failed'); }
+      catch(error) { storageAvailable=false; $('#save-status').textContent='目前無法保存，請匯出 CSV 留存紀錄'; $('#save-status').classList.add('failed'); }
+    }
+    function el(tag, className, value) { const node=document.createElement(tag); if(className)node.className=className; if(value!==undefined)node.textContent=value; return node; }
+    function fmt(value) { return value>0 ? '+'+value.toLocaleString('zh-TW') : value.toLocaleString('zh-TW'); }
+    function color(value) { return value>0?'positive':value<0?'negative':''; }
+    function totals() { return state.rounds.reduce((acc,r)=>acc.map((n,i)=>n+r.deltas[i]),[0,0,0,0]); }
+    function notify(message) { clearTimeout(toastTimer); $('#toast').textContent=message; $('#toast').hidden=false; toastTimer=setTimeout(()=>{$('#toast').hidden=true;},3200); }
+    function buildPlayerInputs() {
+      $('#manual-fields').replaceChildren();
+      $('#name-fields').replaceChildren();
+      state.names.forEach((name,i)=>{
+        const manual=el('label','field'); manual.append(el('span','field-name',name)); const score=el('input'); score.type='number'; score.id='manual-'+i; score.inputMode='numeric'; score.step='1'; score.min=String(-MAX_DELTA); score.max=String(MAX_DELTA); score.value='0'; score.setAttribute('aria-label',name+'本局輸贏'); manual.append(score); $('#manual-fields').append(manual);
+        const setting=el('label','field'); setting.append(el('span','field-name',SEATS[i]+'位玩家')); const input=el('input'); input.id='name-'+i; input.type='text'; input.maxLength=12; input.value=name; input.required=true; setting.append(input); $('#name-fields').append(setting);
+      });
+      ['winner','loser'].forEach((id)=>{const select=$('#'+id); const previous=Number(select.value); select.replaceChildren(...state.names.map((name,i)=>{const option=el('option','',name);option.value=String(i);return option;})); select.value=String(id==='loser'&&previous===0?1:previous);});
+      fixLoser();
+    }
+    function fixLoser() { const winner=Number($('#winner').value); Array.from($('#loser').options).forEach(option=>option.disabled=Number(option.value)===winner); if(Number($('#loser').value)===winner) $('#loser').value=String((winner+1)%4); }
+    function setMode(next) {
+      mode=next; ['calc','manual'].forEach(name=>{const active=name===mode;$('#'+name+'-tab').setAttribute('aria-selected',String(active));$('#'+name+'-tab').tabIndex=active?0:-1;$('#'+name+'-panel').hidden=!active;}); $('#round-error').textContent=''; updatePreview();
+    }
+    function currentType() { return $('input[name="result-type"]:checked').value; }
+    function readInteger(input, label, min, max) { if(input.value.trim()==='') return {error:label+'請填寫整數。',target:input}; const value=Number(input.value); if(!Number.isSafeInteger(value)||value<min||value>max) return {error:label+'請填寫 '+min.toLocaleString('zh-TW')+'～'+max.toLocaleString('zh-TW')+' 之間的整數。',target:input}; return {value}; }
+    function calculateRound() {
+      if(mode==='manual') {
+        const deltas=[]; for(let i=0;i<4;i++){const result=readInteger($('#manual-'+i),state.names[i]+'的輸贏',-MAX_DELTA,MAX_DELTA);if(result.error)return result;deltas.push(result.value);}
+        const sum=deltas.reduce((a,b)=>a+b,0); if(sum!==0)return {deltas,error:'四人的輸贏加總為 '+fmt(sum)+'，需要調整成 0 才能記錄。',target:$('#manual-0')};
+        if(deltas.every(n=>n===0))return {deltas,error:'目前四人的輸贏都是 0；流局請切換台數試算，選擇「流局」。',target:$('#manual-0')};
+        return {deltas,type:'manual'};
+      }
+      const type=currentType(); const deltas=[0,0,0,0]; if(type==='draw')return {deltas,type};
+      const tai=readInteger($('#tai'),'台數',0,999); if(tai.error)return tai;
+      const amount=state.base+tai.value*state.per; if(amount<=0)return {error:'本局試算金額為 0，請調整底、每台金額或台數；流局可直接選擇「流局」。',target:$('#tai')};
+      const winner=Number($('#winner').value),loser=Number($('#loser').value);
+      if(type==='discard') { if(winner===loser)return {error:'胡牌與放槍玩家需要是不同的人。',target:$('#loser')};deltas[winner]=amount;deltas[loser]=-amount; }
+      else { deltas.fill(-amount); deltas[winner]=amount*3; }
+      if(deltas.some(n=>!isSafeAmount(n)))return {error:'本局金額超過記分範圍，請降低底、每台金額或台數。',target:$('#tai')};
+      return {deltas,type,winner,loser:type==='discard'?loser:null,tai:tai.value,amount,base:state.base,per:state.per};
+    }
+    function updatePreview() {
+      const type=currentType(); $('#calc-fields').hidden=type==='draw'; $('#loser-field').hidden=type!=='discard'; $('#calc-help').textContent=type==='draw'?'流局會留下本局紀錄，四位玩家的總分維持原值。':'放槍由一人支付，自摸由其餘三人各支付。特殊加成請計入台數，或切換手動記分。';
+      const tai=Number($('#tai').value); const amount=state.base+tai*state.per; $('#payment-amount').textContent=Number.isFinite(amount)?amount.toLocaleString('zh-TW'):'—';$('#base-label').textContent=state.base;$('#tai-label').textContent=Number.isFinite(tai)?tai:'—';$('#per-label').textContent=state.per;
+      const result=calculateRound(); const values=result.deltas||[null,null,null,null]; $('#preview-scores').replaceChildren(...state.names.map((name,i)=>{const cell=el('div','preview-item'); cell.append(el('span','preview-name',name),el('span','preview-num '+(values[i]===null?'':color(values[i])),values[i]===null?'—':fmt(values[i])));return cell;}));
+      const sum=values.every(v=>v!==null)?values.reduce((a,b)=>a+b,0):null; $('#balance-status').textContent=result.error?(sum!==null&&sum!==0?'差額 '+fmt(sum):'請確認輸入'):'收支平衡'; $('#balance-status').classList.toggle('invalid',Boolean(result.error));
+    }
+    function roundTitle(record) { if(record.type==='draw')return '流局'; if(record.type==='manual')return '手動記分'; if(record.type==='selfdraw')return state.names[record.winner]+' 自摸 · '+record.tai+' 台';return state.names[record.winner]+' 胡牌 · '+state.names[record.loser]+' 放槍 · '+record.tai+' 台'; }
+    function render() {
+      const total=totals(); const high=Math.max(...total); $('#scores').replaceChildren(...state.names.map((name,i)=>{const card=el('article','score-card');const top=el('div','score-top');top.append(el('span','seat',SEATS[i]),el('span','player-name',name));card.append(top,el('p','score-value '+color(total[i]),fmt(total[i])),el('p','score-caption'+(high>0&&total[i]===high?' leader':''),high>0&&total[i]===high?'目前領先':'累計輸贏'));return card;}));
+      $('#round-count').textContent=state.rounds.length;$('#next-round').textContent='第 '+(state.rounds.length+1)+' 局';$('#table-rule').textContent='底 '+state.base+' / 台 '+state.per;$('#total-balance').textContent=fmt(total.reduce((a,b)=>a+b,0));
+      const hasRounds=state.rounds.length>0; $('#empty-state').hidden=hasRounds;$('#history-list').hidden=!hasRounds;$('#undo-round').disabled=!hasRounds;$('#export-csv').disabled=!hasRounds;
+      const history=$('#history-list');history.replaceChildren(...state.rounds.map((record,index)=>{const row=el('article','record');const heading=el('div','record-heading');heading.append(el('span','record-number',String(index+1).padStart(2,'0')),el('h3','record-title',roundTitle(record)));const time=el('time','record-time',new Date(record.time).toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit',hour12:false}));time.dateTime=record.time;heading.append(time);row.append(heading);const points=el('div','record-scores');state.names.forEach((name,i)=>{const point=el('div');point.append(el('span','record-player',name),el('span','record-value '+color(record.deltas[i]),fmt(record.deltas[i])));points.append(point);});row.append(points);if(record.note)row.append(el('p','record-note',record.note));return row;}).reverse());
+      updatePreview();
+    }
+    function askConfirm(title,message,action) { confirmAction=action;$('#confirm-title').textContent=title;$('#confirm-text').textContent=message;$('#confirm-dialog').showModal();$('#confirm-cancel').focus(); }
+    function errorAt(message,target,container) { container.textContent=message; if(target)target.focus(); }
+    $('#round-form').addEventListener('submit',event=>{
+      event.preventDefault();const result=calculateRound();if(result.error){errorAt(result.error,result.target,$('#round-error'));return;}
+      if(state.rounds.length>=10000){$('#round-error').textContent='這桌已記錄 10,000 局，請匯出備份後新開牌桌。';return;}
+      state.rounds.push({...result,note:$('#round-note').value.trim(),time:new Date().toISOString()});saveState();render();$('#round-error').textContent='';$('#round-note').value='';if(mode==='manual')for(let i=0;i<4;i++)$('#manual-'+i).value='0';updatePreview();notify('第 '+state.rounds.length+' 局已記錄');
+    });
+    ['calc','manual'].forEach(name=>$('#'+name+'-tab').addEventListener('click',()=>setMode(name)));
+    $('.tabs').addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){event.preventDefault();const next=event.key==='Home'?'calc':event.key==='End'?'manual':mode==='calc'?'manual':'calc';setMode(next);$('#'+next+'-tab').focus();}});
+    $('#round-form').addEventListener('input',()=>{updatePreview();$('#round-error').textContent='';});
+    $('#winner').addEventListener('change',()=>{fixLoser();updatePreview();});
+    $('#round-form').addEventListener('change',updatePreview);
+    $('#open-settings').addEventListener('click',()=>{state.names.forEach((name,i)=>$('#name-'+i).value=name);$('#setting-base').value=state.base;$('#setting-per').value=state.per;$('#settings-error').textContent='';$('#settings-dialog').showModal();});
+    $('#close-settings').addEventListener('click',()=>$('#settings-dialog').close());
+    $('#settings-form').addEventListener('submit',event=>{
+      event.preventDefault();const names=state.names.map((_,i)=>$('#name-'+i).value.trim());for(let i=0;i<4;i++){if(!names[i]||names[i].length>12){errorAt('每位玩家的名字需要 1～12 個字。',$('#name-'+i),$('#settings-error'));return;}}if(new Set(names).size!==4){errorAt('四位玩家請使用不同的名字，才容易分辨。',$('#name-0'),$('#settings-error'));return;}
+      const base=readInteger($('#setting-base'),'底的金額',0,1000000),per=readInteger($('#setting-per'),'每台金額',0,1000000);const invalid=base.error?base:per.error?per:null;if(invalid){errorAt(invalid.error,invalid.target,$('#settings-error'));return;}
+      state.names=names;state.base=base.value;state.per=per.value;saveState();buildPlayerInputs();render();$('#settings-dialog').close();notify('玩家與牌桌設定已儲存');
+    });
+    $('#undo-round').addEventListener('click',()=>{if(state.rounds.length===0)return;askConfirm('撤銷上一局？','第 '+state.rounds.length+' 局會被移除，四人的總分也會重新計算。',()=>{state.rounds.pop();saveState();render();notify('已撤銷上一局');});});
+    $('#new-game').addEventListener('click',()=>askConfirm('新開牌桌？','目前的每局紀錄會清空，玩家姓名及底、台設定會保留。需要留存時，請先取消並匯出 CSV。',()=>{state.rounds=[];$('#round-note').value='';$('#round-error').textContent='';buildPlayerInputs();saveState();render();notify('已清空紀錄，開始新的一桌');}));
+    $('#confirm-cancel').addEventListener('click',()=>{$('#confirm-dialog').close();confirmAction=null;});
+    $('#confirm-ok').addEventListener('click',()=>{const action=confirmAction;confirmAction=null;$('#confirm-dialog').close();if(action)action();});
+    $('#confirm-dialog').addEventListener('cancel',()=>confirmAction=null);
+    $('#load-demo').addEventListener('click',()=>{
+      if(state.rounds.length>0)return;const now=Date.now();const make=(deltas,type,winner,loser,tai,note,index)=>({deltas,type,winner,loser,tai,note,time:new Date(now-(4-index)*60000).toISOString(),amount:state.base+tai*state.per,base:state.base,per:state.per});const a=state.base+2*state.per,b=state.base+3*state.per,c=state.base+state.per;
+      if(a===0||b===0||c===0){notify('請先把底或每台金額設定為大於 0，再載入示範');return;}
+      state.rounds=[make([a,-a,0,0],'discard',0,1,2,'示範：單一玩家放槍',0),make([-b,3*b,-b,-b],'selfdraw',1,null,3,'示範：三位玩家各支付同一金額',1),make([0,0,-c,c],'discard',3,2,1,'示範：另一局放槍',2),make([0,0,0,0],'draw',null,null,0,'示範：流局保留紀錄',3)];saveState();render();notify('已載入四局示範；要自己開始可點「新開牌桌」');
+    });
+    function csvCell(value) {
+      let str=String(value);
+      // Keep user text literal when a spreadsheet opens the CSV. Numeric scores stay numeric.
+      if (typeof value==='string' && /^\s*[=+\-@]/u.test(str)) str="'"+str;
+      return '"'+str.replaceAll('"','""')+'"';
+    }
+    $('#export-csv').addEventListener('click',()=>{
+      if(state.rounds.length===0)return;const rows=[['局數','時間','結果',...state.names,'備註']];state.rounds.forEach((r,i)=>rows.push([i+1,r.time,roundTitle(r),...r.deltas,r.note]));rows.push(['總計','','',...totals(),'']);const csv='\uFEFF'+rows.map(row=>row.map(csvCell).join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));const link=el('a');link.href=url;link.download='mahjong-score-'+new Date().toISOString().slice(0,10)+'.csv';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);notify('已匯出 CSV 紀錄');
+    });
+    readSavedState();buildPlayerInputs();render();
+  </script>
+</body>
+</html>
