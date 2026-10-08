@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#113d34">
-  <meta name="description" content="四人麻將記分助手：台數試算、手動記分、即時總分、每局紀錄與本機保存。">
+  <meta name="description" content="記下四人麻將每局輸贏。可用台數試算或手動記分，也能匯出紀錄。">
   <title>牌桌小帳本｜麻將記分助手</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='9' fill='%23113d34'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-size='28' font-family='sans-serif' fill='%23ffffff'%3E中%3C/text%3E%3C/svg%3E">
   <style>
@@ -21,28 +21,28 @@
   <noscript><div class="noscript">這個記分助手需要 JavaScript，請開啟瀏覽器的 JavaScript 後重新整理。</div></noscript>
   <header class="topbar"><div class="shell topbar-inner"><div class="brand"><span class="brand-mark" aria-hidden="true">中</span><span>牌桌小帳本</span><span class="top-label">MAHJONG SCOREBOOK</span></div><button class="button quiet danger" id="new-game">新開牌桌</button></div></header>
   <main class="shell">
-    <div class="titlebar"><div><p class="eyebrow">四人麻將 · 即時記分</p><h1>這桌輸贏，一目了然。</h1><p class="subtitle">記下一局，剩下的加總交給小帳本。</p></div><div class="title-actions"><button class="button secondary" id="export-csv" disabled>匯出 CSV</button><button class="button secondary" id="open-settings">玩家與牌桌設定</button></div></div>
+    <div class="titlebar"><div><h1>麻將記分助手</h1><p class="subtitle">輸入每局結果就能算出總輸贏</p></div><div class="title-actions"><button class="button secondary" id="export-csv" disabled>匯出 CSV</button><button class="button secondary" id="open-settings">玩家與牌桌設定</button></div></div>
     <section class="board" aria-labelledby="score-heading"><div class="board-top"><h2 id="score-heading">牌桌總分</h2><div class="board-meta"><span>已記錄 <strong id="round-count">0</strong> 局</span><span id="table-rule">底 30 / 台 10</span></div></div><div class="scores" id="scores" aria-live="polite" aria-atomic="true"></div></section>
     <div class="workspace">
       <section class="panel" aria-labelledby="entry-heading"><div class="panel-heading"><h2 id="entry-heading">記下一局</h2><span class="badge" id="next-round">第 1 局</span></div>
         <div class="tabs" role="tablist" aria-label="記分方式"><button type="button" role="tab" class="tab" id="calc-tab" aria-selected="true" aria-controls="calc-panel" tabindex="0">台數試算</button><button type="button" role="tab" class="tab" id="manual-tab" aria-selected="false" aria-controls="manual-panel" tabindex="-1">手動記分</button></div>
         <form id="round-form" novalidate>
           <div id="calc-panel" role="tabpanel" aria-labelledby="calc-tab"><fieldset><legend>這局怎麼結束？</legend><div class="choice-row"><label class="choice"><input type="radio" name="result-type" value="discard" checked>放槍</label><label class="choice"><input type="radio" name="result-type" value="selfdraw">自摸</label><label class="choice"><input type="radio" name="result-type" value="draw">流局</label></div></fieldset>
-            <div id="calc-fields"><div class="grid-2"><label class="field"><span class="field-name">胡牌玩家</span><select id="winner" aria-label="胡牌玩家"></select></label><label class="field" id="loser-field"><span class="field-name">放槍玩家</span><select id="loser" aria-label="放槍玩家"></select></label><label class="field" id="tai-field"><span class="field-name">台數</span><input id="tai" type="number" inputmode="numeric" min="0" max="999" step="1" value="2" aria-describedby="rule-description"></label></div><div class="rule-line" id="rule-description">每位付款玩家支付 <strong id="payment-amount">50</strong> ＝ 底 <span id="base-label">30</span> ＋ <span id="tai-label">2</span> 台 × <span id="per-label">10</span></div></div>
-            <p class="help" id="calc-help">放槍由一人支付，自摸由其餘三人各支付。特殊加成請計入台數，或切換手動記分。</p>
+            <div id="calc-fields"><div class="grid-2"><label class="field"><span class="field-name">胡牌玩家</span><select id="winner" aria-label="胡牌玩家"></select></label><label class="field" id="loser-field"><span class="field-name">放槍玩家</span><select id="loser" aria-label="放槍玩家"></select></label><label class="field" id="tai-field"><span class="field-name">台數</span><input id="tai" type="number" inputmode="numeric" min="0" max="999" step="1" value="2" aria-describedby="rule-description"></label></div><div class="rule-line" id="rule-description">應付金額 <strong id="payment-amount">50</strong> ＝ 底 <span id="base-label">30</span> ＋ <span id="tai-label">2</span> 台 × <span id="per-label">10</span></div></div>
+            <p class="help" id="calc-help">放槍由一人付錢。自摸由另外三人各付一份。</p>
           </div>
-          <div id="manual-panel" role="tabpanel" aria-labelledby="manual-tab" hidden><p class="help" style="margin-bottom:16px">贏的填正數，輸的填負數；四人的加總必須等於 0。</p><div class="manual-fields" id="manual-fields"></div></div>
+          <div id="manual-panel" role="tabpanel" aria-labelledby="manual-tab" hidden><p class="help" style="margin-bottom:16px">贏的填正數，輸的填負數。四人加總要等於 0。</p><div class="manual-fields" id="manual-fields"></div></div>
           <div class="preview"><div class="preview-head"><strong>本局預覽</strong><span id="balance-status" class="balance">收支平衡</span></div><div class="preview-grid" id="preview-scores"></div></div>
-          <label class="field note-field"><span class="field-name">本局備註 <span class="optional">（選填）</span></span><input id="round-note" type="text" maxlength="80" placeholder="例如：莊家連莊，已計入台數"></label>
+          <label class="field note-field"><span class="field-name">本局備註 <span class="optional">（選填）</span></span><input id="round-note" type="text" maxlength="80" placeholder="例如：連莊已算進台數"></label>
           <p class="error" id="round-error" role="alert"></p><div class="submit-row"><button class="button primary" type="submit">記錄這一局</button></div>
         </form>
-        <details class="info-details"><summary>記分方式與保存說明</summary><p class="help">台數試算只使用你設定的「底＋台數×每台金額」。莊家、連莊、包牌等規則由牌桌自行約定，請調整台數或使用手動記分。這裡不判斷牌型，也不提供金流。</p><p class="help">紀錄保存在目前瀏覽器，不會跨裝置同步。清除瀏覽器資料或使用無痕模式可能讓紀錄消失；需要留存時可匯出 CSV。</p></details>
+        <details class="info-details"><summary>計算和保存說明</summary><p class="help">金額按「底＋台數×每台金額」計算。台數試算不會自動計算莊家、連莊或包牌。這些金額可以加進台數，也可以用手動記分。</p><p class="help">紀錄存在這個瀏覽器，換裝置後不會同步。清除瀏覽器資料或關閉無痕視窗會讓紀錄消失。想保留可以先匯出 CSV。</p></details>
       </section>
-      <section class="panel" aria-labelledby="history-heading"><div class="panel-heading"><h2 id="history-heading">每局紀錄</h2><div class="history-tools"><button class="button quiet" id="undo-round" disabled>撤銷上一局</button></div></div><div id="empty-state" class="empty"><div class="empty-symbol" aria-hidden="true">🀄</div><h3>第一局，從這裡開始。</h3><p>設定四位玩家，再把這一局記下來。</p><button class="button secondary sample-button" id="load-demo">載入示範紀錄</button></div><div id="history-list" class="record-list" hidden></div></section>
+      <section class="panel" aria-labelledby="history-heading"><div class="panel-heading"><h2 id="history-heading">每局紀錄</h2><div class="history-tools"><button class="button quiet" id="undo-round" disabled>撤銷上一局</button></div></div><div id="empty-state" class="empty"><div class="empty-symbol" aria-hidden="true">🀄</div><h3>還沒有記錄</h3><p>記下第一局或先看看示範紀錄</p><button class="button secondary sample-button" id="load-demo">載入示範紀錄</button></div><div id="history-list" class="record-list" hidden></div></section>
     </div>
-    <footer class="footer"><span>四位玩家的累計加總：<strong id="total-balance">0</strong></span><span id="save-status" class="save-status" role="status">紀錄自動保存在這個瀏覽器</span></footer>
+    <footer class="footer"><span>四人總分合計：<strong id="total-balance">0</strong></span><span id="save-status" class="save-status" role="status">紀錄存在這個瀏覽器</span></footer>
   </main>
-  <dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form" novalidate><h2 id="settings-title">玩家與牌桌設定</h2><p class="help">取個好認的名字，底和台的金額由這桌決定。</p><div class="dialog-grid" id="name-fields"></div><h3 class="dialog-subtitle">台數試算設定</h3><div class="dialog-grid"><label class="field"><span class="field-name">底的金額</span><input id="setting-base" type="number" inputmode="numeric" min="0" max="1000000" step="1" value="30"></label><label class="field"><span class="field-name">每台金額</span><input id="setting-per" type="number" inputmode="numeric" min="0" max="1000000" step="1" value="10"></label></div><p class="help" style="margin:12px 0 0">修改金額只影響之後的試算，已記錄的輸贏金額會保留。</p><p id="settings-error" class="error" role="alert"></p><div class="dialog-actions"><button class="button secondary" id="close-settings" type="button">取消</button><button class="button primary" type="submit">儲存設定</button></div></form></dialog>
+  <dialog id="settings-dialog" aria-labelledby="settings-title"><form id="settings-form" novalidate><h2 id="settings-title">玩家與牌桌設定</h2><p class="help">填好四位玩家的名字和這桌的底、台金額</p><div class="dialog-grid" id="name-fields"></div><h3 class="dialog-subtitle">台數試算設定</h3><div class="dialog-grid"><label class="field"><span class="field-name">底的金額</span><input id="setting-base" type="number" inputmode="numeric" min="0" max="1000000" step="1" value="30"></label><label class="field"><span class="field-name">每台金額</span><input id="setting-per" type="number" inputmode="numeric" min="0" max="1000000" step="1" value="10"></label></div><p class="help" style="margin:12px 0 0">新的金額設定會套用到下一局。之前的紀錄不會變。</p><p id="settings-error" class="error" role="alert"></p><div class="dialog-actions"><button class="button secondary" id="close-settings" type="button">取消</button><button class="button primary" type="submit">儲存設定</button></div></form></dialog>
   <dialog id="confirm-dialog" aria-labelledby="confirm-title"><h2 id="confirm-title">確定執行這個動作？</h2><p id="confirm-text" class="help"></p><div class="dialog-actions"><button class="button secondary" id="confirm-cancel">取消</button><button class="button primary" id="confirm-ok">確定</button></div></dialog>
   <div class="toast" id="toast" role="status" hidden></div>
   <script>
@@ -75,11 +75,11 @@
     }
     function readSavedState() {
       try { const raw=localStorage.getItem(STORAGE_KEY); if(raw!==null){const stored=JSON.parse(raw); if(!validStoredState(stored)) throw new Error('Invalid saved state'); state=stored;} }
-      catch(error) { storageAvailable=false; $('#save-status').textContent='無法讀取保存紀錄；目前可繼續操作，請匯出備份'; $('#save-status').classList.add('failed'); }
+      catch(error) { storageAvailable=false; $('#save-status').textContent='無法讀取之前的紀錄。新記錄請用 CSV 備份。'; $('#save-status').classList.add('failed'); }
     }
     function saveState() {
-      try { localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); storageAvailable=true; $('#save-status').textContent='已自動保存 · 重新整理也能接著記'; $('#save-status').classList.remove('failed'); }
-      catch(error) { storageAvailable=false; $('#save-status').textContent='目前無法保存，請匯出 CSV 留存紀錄'; $('#save-status').classList.add('failed'); }
+      try { localStorage.setItem(STORAGE_KEY,JSON.stringify(state)); storageAvailable=true; $('#save-status').textContent='已自動保存'; $('#save-status').classList.remove('failed'); }
+      catch(error) { storageAvailable=false; $('#save-status').textContent='這次沒存成功。請匯出 CSV 備份。'; $('#save-status').classList.add('failed'); }
     }
     function el(tag, className, value) { const node=document.createElement(tag); if(className)node.className=className; if(value!==undefined)node.textContent=value; return node; }
     function fmt(value) { return value>0 ? '+'+value.toLocaleString('zh-TW') : value.toLocaleString('zh-TW'); }
@@ -105,21 +105,21 @@
     function calculateRound() {
       if(mode==='manual') {
         const deltas=[]; for(let i=0;i<4;i++){const result=readInteger($('#manual-'+i),state.names[i]+'的輸贏',-MAX_DELTA,MAX_DELTA);if(result.error)return result;deltas.push(result.value);}
-        const sum=deltas.reduce((a,b)=>a+b,0); if(sum!==0)return {deltas,error:'四人的輸贏加總為 '+fmt(sum)+'，需要調整成 0 才能記錄。',target:$('#manual-0')};
-        if(deltas.every(n=>n===0))return {deltas,error:'目前四人的輸贏都是 0；流局請切換台數試算，選擇「流局」。',target:$('#manual-0')};
+        const sum=deltas.reduce((a,b)=>a+b,0); if(sum!==0)return {deltas,error:'四人加總是 '+fmt(sum)+'。請調整到 0。',target:$('#manual-0')};
+        if(deltas.every(n=>n===0))return {deltas,error:'四人都是 0。流局請到「台數試算」選「流局」。',target:$('#manual-0')};
         return {deltas,type:'manual'};
       }
       const type=currentType(); const deltas=[0,0,0,0]; if(type==='draw')return {deltas,type};
       const tai=readInteger($('#tai'),'台數',0,999); if(tai.error)return tai;
-      const amount=state.base+tai.value*state.per; if(amount<=0)return {error:'本局試算金額為 0，請調整底、每台金額或台數；流局可直接選擇「流局」。',target:$('#tai')};
+      const amount=state.base+tai.value*state.per; if(amount<=0)return {error:'目前算出的金額是 0。請調整底、台金額或台數。流局請直接選「流局」。',target:$('#tai')};
       const winner=Number($('#winner').value),loser=Number($('#loser').value);
-      if(type==='discard') { if(winner===loser)return {error:'胡牌與放槍玩家需要是不同的人。',target:$('#loser')};deltas[winner]=amount;deltas[loser]=-amount; }
+      if(type==='discard') { if(winner===loser)return {error:'胡牌和放槍不能選同一人',target:$('#loser')};deltas[winner]=amount;deltas[loser]=-amount; }
       else { deltas.fill(-amount); deltas[winner]=amount*3; }
-      if(deltas.some(n=>!isSafeAmount(n)))return {error:'本局金額超過記分範圍，請降低底、每台金額或台數。',target:$('#tai')};
+      if(deltas.some(n=>!isSafeAmount(n)))return {error:'金額太大了。請降低底、台金額或台數。',target:$('#tai')};
       return {deltas,type,winner,loser:type==='discard'?loser:null,tai:tai.value,amount,base:state.base,per:state.per};
     }
     function updatePreview() {
-      const type=currentType(); $('#calc-fields').hidden=type==='draw'; $('#loser-field').hidden=type!=='discard'; $('#calc-help').textContent=type==='draw'?'流局會留下本局紀錄，四位玩家的總分維持原值。':'放槍由一人支付，自摸由其餘三人各支付。特殊加成請計入台數，或切換手動記分。';
+      const type=currentType(); $('#calc-fields').hidden=type==='draw'; $('#loser-field').hidden=type!=='discard'; $('#calc-help').textContent=type==='draw'?'流局會記下一局。四人的總分不變。':'放槍由一人付錢。自摸由另外三人各付一份。';
       const tai=Number($('#tai').value); const amount=state.base+tai*state.per; $('#payment-amount').textContent=Number.isFinite(amount)?amount.toLocaleString('zh-TW'):'—';$('#base-label').textContent=state.base;$('#tai-label').textContent=Number.isFinite(tai)?tai:'—';$('#per-label').textContent=state.per;
       const result=calculateRound(); const values=result.deltas||[null,null,null,null]; $('#preview-scores').replaceChildren(...state.names.map((name,i)=>{const cell=el('div','preview-item'); cell.append(el('span','preview-name',name),el('span','preview-num '+(values[i]===null?'':color(values[i])),values[i]===null?'—':fmt(values[i])));return cell;}));
       const sum=values.every(v=>v!==null)?values.reduce((a,b)=>a+b,0):null; $('#balance-status').textContent=result.error?(sum!==null&&sum!==0?'差額 '+fmt(sum):'請確認輸入'):'收支平衡'; $('#balance-status').classList.toggle('invalid',Boolean(result.error));
@@ -136,7 +136,7 @@
     function errorAt(message,target,container) { container.textContent=message; if(target)target.focus(); }
     $('#round-form').addEventListener('submit',event=>{
       event.preventDefault();const result=calculateRound();if(result.error){errorAt(result.error,result.target,$('#round-error'));return;}
-      if(state.rounds.length>=10000){$('#round-error').textContent='這桌已記錄 10,000 局，請匯出備份後新開牌桌。';return;}
+      if(state.rounds.length>=10000){$('#round-error').textContent='這桌已記滿 10,000 局。請先匯出 CSV 再新開牌桌。';return;}
       state.rounds.push({...result,note:$('#round-note').value.trim(),time:new Date().toISOString()});saveState();render();$('#round-error').textContent='';$('#round-note').value='';if(mode==='manual')for(let i=0;i<4;i++)$('#manual-'+i).value='0';updatePreview();notify('第 '+state.rounds.length+' 局已記錄');
     });
     ['calc','manual'].forEach(name=>$('#'+name+'-tab').addEventListener('click',()=>setMode(name)));
@@ -147,19 +147,19 @@
     $('#open-settings').addEventListener('click',()=>{state.names.forEach((name,i)=>$('#name-'+i).value=name);$('#setting-base').value=state.base;$('#setting-per').value=state.per;$('#settings-error').textContent='';$('#settings-dialog').showModal();});
     $('#close-settings').addEventListener('click',()=>$('#settings-dialog').close());
     $('#settings-form').addEventListener('submit',event=>{
-      event.preventDefault();const names=state.names.map((_,i)=>$('#name-'+i).value.trim());for(let i=0;i<4;i++){if(!names[i]||names[i].length>12){errorAt('每位玩家的名字需要 1～12 個字。',$('#name-'+i),$('#settings-error'));return;}}if(new Set(names).size!==4){errorAt('四位玩家請使用不同的名字，才容易分辨。',$('#name-0'),$('#settings-error'));return;}
+      event.preventDefault();const names=state.names.map((_,i)=>$('#name-'+i).value.trim());for(let i=0;i<4;i++){if(!names[i]||names[i].length>12){errorAt('名字限 1～12 個字',$('#name-'+i),$('#settings-error'));return;}}if(new Set(names).size!==4){errorAt('四人的名字不能重複',$('#name-0'),$('#settings-error'));return;}
       const base=readInteger($('#setting-base'),'底的金額',0,1000000),per=readInteger($('#setting-per'),'每台金額',0,1000000);const invalid=base.error?base:per.error?per:null;if(invalid){errorAt(invalid.error,invalid.target,$('#settings-error'));return;}
-      state.names=names;state.base=base.value;state.per=per.value;saveState();buildPlayerInputs();render();$('#settings-dialog').close();notify('玩家與牌桌設定已儲存');
+      state.names=names;state.base=base.value;state.per=per.value;saveState();buildPlayerInputs();render();$('#settings-dialog').close();notify('設定已儲存');
     });
-    $('#undo-round').addEventListener('click',()=>{if(state.rounds.length===0)return;askConfirm('撤銷上一局？','第 '+state.rounds.length+' 局會被移除，四人的總分也會重新計算。',()=>{state.rounds.pop();saveState();render();notify('已撤銷上一局');});});
-    $('#new-game').addEventListener('click',()=>askConfirm('新開牌桌？','目前的每局紀錄會清空，玩家姓名及底、台設定會保留。需要留存時，請先取消並匯出 CSV。',()=>{state.rounds=[];$('#round-note').value='';$('#round-error').textContent='';buildPlayerInputs();saveState();render();notify('已清空紀錄，開始新的一桌');}));
+    $('#undo-round').addEventListener('click',()=>{if(state.rounds.length===0)return;askConfirm('撤銷上一局？','第 '+state.rounds.length+' 局會被撤銷。總分會重新計算。',()=>{state.rounds.pop();saveState();render();notify('已撤銷上一局');});});
+    $('#new-game').addEventListener('click',()=>askConfirm('新開牌桌？','這桌的紀錄會清空。名字和底、台設定會保留。想留下紀錄可以先取消並匯出 CSV。',()=>{state.rounds=[];$('#round-note').value='';$('#round-error').textContent='';buildPlayerInputs();saveState();render();notify('已新開牌桌');}));
     $('#confirm-cancel').addEventListener('click',()=>{$('#confirm-dialog').close();confirmAction=null;});
     $('#confirm-ok').addEventListener('click',()=>{const action=confirmAction;confirmAction=null;$('#confirm-dialog').close();if(action)action();});
     $('#confirm-dialog').addEventListener('cancel',()=>confirmAction=null);
     $('#load-demo').addEventListener('click',()=>{
       if(state.rounds.length>0)return;const now=Date.now();const make=(deltas,type,winner,loser,tai,note,index)=>({deltas,type,winner,loser,tai,note,time:new Date(now-(4-index)*60000).toISOString(),amount:state.base+tai*state.per,base:state.base,per:state.per});const a=state.base+2*state.per,b=state.base+3*state.per,c=state.base+state.per;
-      if(a===0||b===0||c===0){notify('請先把底或每台金額設定為大於 0，再載入示範');return;}
-      state.rounds=[make([a,-a,0,0],'discard',0,1,2,'示範：單一玩家放槍',0),make([-b,3*b,-b,-b],'selfdraw',1,null,3,'示範：三位玩家各支付同一金額',1),make([0,0,-c,c],'discard',3,2,1,'示範：另一局放槍',2),make([0,0,0,0],'draw',null,null,0,'示範：流局保留紀錄',3)];saveState();render();notify('已載入四局示範；要自己開始可點「新開牌桌」');
+      if(a===0||b===0||c===0){notify('底或每台金額要大於 0 才能載入示範');return;}
+      state.rounds=[make([a,-a,0,0],'discard',0,1,2,'示範：放槍',0),make([-b,3*b,-b,-b],'selfdraw',1,null,3,'示範：自摸',1),make([0,0,-c,c],'discard',3,2,1,'示範：放槍',2),make([0,0,0,0],'draw',null,null,0,'示範：流局',3)];saveState();render();notify('已載入四局示範。要開始記分請按「新開牌桌」。');
     });
     function csvCell(value) {
       let str=String(value);
